@@ -43,3 +43,18 @@ resource "aws_subnet" "private" {
     Name = "Private_Subnet ${var.tagNameDate}_${count.index + 1}"
   }
 }
+
+
+# Create Route Tables
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = var.cidr_blocks[0]
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "Public_Route_Table ${var.tagNameDate}"
+  }
+}
