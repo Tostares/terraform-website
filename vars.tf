@@ -23,3 +23,14 @@ variable "private_subnet_cidr_blocks" {
   description = "CIDR blocks for private subnets"
   default     = ["10.0.0.128/26", "10.0.0.192/26"] # Adjust as needed
 }
+
+# EC2 Variables
+variable "ec2_instance_type" {
+  description = "EC2 instance type"
+  default     = "t2.micro"
+}
+
+variable "key_name" {
+  description = "Name of the EC2 key pair"
+  default     = "vockey"
+}
