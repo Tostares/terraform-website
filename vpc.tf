@@ -57,6 +57,8 @@ resource "aws_route_table" "public" {
   tags = {
     Name = "Public_Route_Table ${var.tagNameDate}"
   }
+
+  
 }
 
 resource "aws_route_table" "private" {
@@ -66,4 +68,5 @@ resource "aws_route_table" "private" {
   tags = {
     Name = "Private_Route_Table ${var.tagNameDate}_${count.index + 1}"
   }
+
 }
