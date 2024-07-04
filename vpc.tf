@@ -57,4 +57,16 @@ resource "aws_route_table" "public" {
   tags = {
     Name = "Public_Route_Table ${var.tagNameDate}"
   }
+
+  
+}
+
+resource "aws_route_table" "private" {
+  count  = length(var.availability_zones)
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "Private_Route_Table ${var.tagNameDate}_${count.index + 1}"
+  }
+
 }
