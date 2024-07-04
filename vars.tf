@@ -1,6 +1,6 @@
 #You can provide Date value if need to know when its created and what is happening
 variable "tagNameDate" {
-  default = ""
+  default = formatdate("DD-MM-YY", timestamp())
 }
 
 # VPC Variables
