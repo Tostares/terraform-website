@@ -1,6 +1,6 @@
 #You can provide Date value if need to know when its created and what is happening
 variable "tagNameDate" {
-  default = formatdate("DD-MM-YY", timestamp())
+  default = ""
 }
 
 # VPC Variables
@@ -13,7 +13,7 @@ variable "availability_zones" {
   default     = ["us-west-2a", "us-west-2b"] # Replace with your availability zones
 }
 
-#-----Subnet Variables-----
+#----Subnet Variables-----
 variable "public_subnet_cidr_blocks" {
   description = "CIDR blocks for public subnets"
   default     = ["10.0.0.0/26", "10.0.0.64/26"] # Adjust as needed
