@@ -31,3 +31,39 @@ resource "aws_subnet" "public" {
   }
 
 }
+
+# Create Private Subnets
+resource "aws_subnet" "private" {
+  count             = length(var.private_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.private_subnet_cidr_blocks[count.index]
+  availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
+
+  tags = {
+    Name = "Private_Subnet ${var.tagNameDate}_${count.index + 1}"
+  }
+}
+
+
+# Create Route Tables
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = var.cidr_blocks[0]
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "Public_Route_Table ${var.tagNameDate}"
+  }
+}
+
+resource "aws_route_table" "private" {
+  count  = length(var.availability_zones)
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "Private_Route_Table ${var.tagNameDate}_${count.index + 1}"
+  }
+}
