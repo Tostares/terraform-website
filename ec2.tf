@@ -25,8 +25,7 @@ resource "aws_instance" "wordpress_instance" {
   tags = {
     Name = local.name
   }
-  #user_data = file("UserData.sh")
-  user_data = data.template_file.userdataEC.rendered
-
+  user_data = file("UserDataEC2.sh")
+  #user_data = data.template_file.userdataEC.rendered
 
 }
