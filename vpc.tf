@@ -31,3 +31,15 @@ resource "aws_subnet" "public" {
   }
 
 }
+
+# Create Private Subnets
+resource "aws_subnet" "private" {
+  count             = length(var.private_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.private_subnet_cidr_blocks[count.index]
+  availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
+
+  tags = {
+    Name = "Private_Subnet ${var.tagNameDate}_${count.index + 1}"
+  }
+}
