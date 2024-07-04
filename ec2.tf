@@ -2,15 +2,14 @@ locals {
   name = "WordPress Instance ${var.tagNameDate}"
 }
 #Get latest ami ID of Amazon Linux - values = ["al2023-ami-2023*x86_64"]
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
+data "aws_ami" "amazon_linux_2" {
+    most_recent = true
+   filter {
+     name   = "name"
+     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+   }
+ }
 
-  filter {
-    name   = "name"
-    values = ["al2023-ami-2023*x86_64"]
-  }
-}
 
 resource "aws_instance" "wordpress_instance" {
   ami                         = data.aws_ami.amazon_linux.id
