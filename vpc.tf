@@ -16,3 +16,18 @@ resource "aws_internet_gateway" "igw" {
     Name = "igw ${var.tagNameDate}"
   }
 }
+
+
+# Create Public Subnets
+resource "aws_subnet" "public" {
+  count                   = length(var.public_subnet_cidr_blocks)
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.public_subnet_cidr_blocks[count.index]
+  availability_zone       = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "Public_Subnet ${var.tagNameDate}_${count.index + 1}"
+  }
+
+}
