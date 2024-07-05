@@ -1,7 +1,7 @@
 locals {
   name = "WordPress Instance ${var.tagNameDate}"
 }
-#Get latest ami ID of Amazon Linux - values = ["al2023-ami-2023*x86_64"]
+#Get latest ami ID of Amazon Linux - values = ["amzn2-ami-hvm-x86_64-gp2"]
 data "aws_ami" "amazon_linux_2" {
     most_recent = true
    filter {
@@ -11,8 +11,9 @@ data "aws_ami" "amazon_linux_2" {
  }
 
 
+
 resource "aws_instance" "wordpress_instance" {
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = data.aws_ami.amazon_linux_2.id
   instance_type               = var.ec2_instance_type
   availability_zone           = var.availability_zones[0]
   key_name                    = var.key_name
