@@ -7,11 +7,38 @@ sudo yum update -y
 sudo yum install -y httpd
 
 # Install MariaDB, PHP, and necessary tools
-sudo amazon-linux-extras install -y php8.0
-sudo amazon-linux-extras enable mariadb10.5
-sudo yum clean metadata
-sudo yum install -y mariadb unzip
+sudo wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+sudo yum localinstall -y mysql57-community-release-el7-11.noarch.rpm
 
+# Import GPG key
+sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022# Update repository metadata
+sudo yum clean all
+sudo yum makecache
+
+# Install MySQL server
+sudo yum install -y mysql-community-server
+
+# Start and enable MySQL service
+sudo systemctl start mysqld.service
+sudo systemctl enable mysqld.service
+
+# Retrieve the temporary root password
+temp_password=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}')
+
+# Set the desired root password
+DBRootPassword='root@258!Password'
+
+# Change the root password using the temporary password
+mysql -u root -p"$temp_password" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DBRootPassword';"
+
+# Install PHP
+sudo amazon-linux-extras install -y php7.4
+
+# Update all installed packages
+sudo yum update -y
+
+# Restart Apache
+sudo systemctl restart httpd
 
 # Set database variables
 DBName="wordpress"
