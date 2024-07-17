@@ -1,6 +1,6 @@
 #You can provide Date value if need to know when its created and what is happening
 variable "tagNameDate" {
-  default = ""
+  default = "17-07-24"
 }
 
 # VPC Variables
@@ -34,3 +34,20 @@ variable "key_name" {
   description = "Name of the EC2 key pair"
   default     = "vockey"
 }
+
+# MySQL Database Variables
+variable "db_username" {
+  description = "Database username"
+  default     = "root"
+}
+
+variable "db_password" {
+  description = "Database password"
+  default     = "root1234"
+}
+
+variable "db_name" {
+  description = "Database name"
+  default     = "wordpress"
+}
+
