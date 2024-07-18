@@ -6,7 +6,8 @@ sudo yum update -y
 # Configure AWS CLI with IAM role credentials
 aws configure set default.region us-west-2
 
-#sudo yum install -y stress-ng
+#Install stresstesting to test load balancing, can be removed in production
+sudo yum install -y stress-ng
 
 #Install httpd
 sudo yum install -y httpd

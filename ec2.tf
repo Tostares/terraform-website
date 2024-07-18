@@ -1,5 +1,5 @@
 locals {
-  name = "WordPress Instance ${var.tagNameDate}"
+  name = "WordPress-Instance${var.tagNameDate}"
 }
 #Get latest ami ID of Amazon Linux - values = ["amzn2-ami-hvm-x86_64-gp2"]
 data "aws_ami" "amazon_linux_2" {
@@ -40,7 +40,10 @@ resource "aws_instance" "wordpress_instance" {
 output "PublicIP" {
   value = aws_instance.wordpress_instance.public_ip
 }
-  
+
+output "InstanceID" {
+  value = aws_instance.wordpress_instance.id
+}
   
   
   
