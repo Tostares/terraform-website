@@ -1,4 +1,3 @@
-# Create RDS Database
 #creating DB Subnet Group
 resource "aws_db_subnet_group" "private" {
   name       = "private_group"
@@ -9,15 +8,16 @@ resource "aws_db_subnet_group" "private" {
   }
 }
 
+#Creating MySQL RDS database
 resource "aws_db_instance" "mysql" {
   allocated_storage      = "10"
-  db_name                = var.rds_db_name
+  db_name                = var.db_name
   engine                 = "mysql"
   engine_version         = "8.0.35"
   instance_class         = "db.t3.micro"
   identifier             = "rds-db"
-  username               = var.rds_username
-  password               = var.rds_password
+  username               = var.db_username
+  password               = var.db_password
   skip_final_snapshot    = true
   multi_az               = false
   storage_encrypted      = false
@@ -27,5 +27,24 @@ resource "aws_db_instance" "mysql" {
   tags = {
     Name = "rds_db ${var.tagNameDate}"
   }
+}
+
+data "aws_db_instance" "mysql_data" {
+  db_instance_identifier = aws_db_instance.mysql.identifier
+}
+
+#Get Database name, username, password, endpoint from above RDS
+output "db_name" {
+  value = data.aws_db_instance.mysql_data.db_name
+}
+output "db_username" {
+  value = var.db_username
+}
+output "db_password" {
+  value     = var.db_password
+  sensitive = true
+}
+output "RDS_endpoint" {
+  value = data.aws_db_instance.mysql_data.endpoint
 }
 
