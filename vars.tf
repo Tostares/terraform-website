@@ -1,6 +1,6 @@
 #You can provide Date value if need to know when its created and what is happening
 variable "tagNameDate" {
-  default = "fluffytown"
+  default = "-fluff"
 }
 
 # VPC Variables
@@ -49,5 +49,11 @@ variable "db_password" {
 variable "db_name" {
   description = "Database name"
   default     = "wordpress"
+}
+
+# SNS email id variable
+variable "EMAIL_ID" {
+  description = "SNS email id"
+  default     = "example@gmail.com"
 }
 
