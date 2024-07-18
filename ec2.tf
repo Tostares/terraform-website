@@ -25,7 +25,36 @@ resource "aws_instance" "wordpress_instance" {
   tags = {
     Name = local.name
   }
-  user_data = file("UserDataEC2.sh")
+  #user_data = file("UserDataEC2.sh")
+  #set up with userdata template to collect variables
+  user_data = templatefile("${path.module}/UserDataEC2.sh", 
+    {
+      #make sure your variables are the same as your userdata.tpl
+      db_name     = var.db_name
+      db_username = var.db_username
+      db_password = var.db_password
+      db_endpoint = aws_db_instance.mysql.endpoint 
+    })  
+}
+
+output "PublicIP" {
+  value = aws_instance.wordpress_instance.public_ip
+}
+  
+  
+  
+  
   #user_data = data.template_file.userdataEC.rendered
 
-}
+#}
+
+# data "template_file" "userdataEC" {
+#   template = file("UserDataEC2.sh")
+
+#   vars = {
+#     rds_endpoint = replace("${data.aws_db_instance.mysql_data.endpoint}", ":3306", "")
+#     db_username = "${var.db_username}"
+#     db_password = "${var.db_password}"
+#     db_name  = "${data.aws_db_instance.mysql_data.db_name}"
+#   }
+# }
