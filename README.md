@@ -7,7 +7,7 @@ Automation and scaling of wordpress website/blog utilizing AWS CLI and Terraform
 I wanted to showcase my DevOps capabilities and how to best implement a wordpress blog with the tools AWS provides.   
 The focus is on automated and monitored scaling that allows the user a hands-off approach on using Wordpress in their environment.  
 
-#Overview
+# Overview
 With this infrastructure built around the WordPress Instance we want to enable a highly available Website/Blog. In order to do so we utilized the AWS Cloud and built it automatically with Terraform. 
 Here is the architecture:
 
