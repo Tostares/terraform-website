@@ -51,9 +51,19 @@ variable "db_name" {
   default     = "wordpress"
 }
 
+
 # SNS email id variable
 variable "EMAIL_ID" {
   description = "SNS email id"
   default     = "example@gmail.com"
+}
+
+
+#Access Key and Secret key
+variable "access_key" {
+  default = "ASIA4MTWJHACLVQP7TRD"
+}
+variable "secret_key" {
+  default = "k5VUt0rktvjrw5Kn49GeXXGGxRu58UscKDS0vebh"
 }
 
